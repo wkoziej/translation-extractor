@@ -5,7 +5,9 @@
 
 (defconst translation-yml-file "~/devel/medical-reservation-system/mrs/config/locales/en.yml")
 
-(defconst what-is-in-string "-_A-Za-z0-9\n\t\b\s!@#$%^&*()-+=_")
+(defconst what-is-in-string "-_A-Za-z0-9\n\t\b\s!@#$%^&*()+=\\/?")
+
+(defconst what-replace-to-underscore "!@#$%^&*()+=\\/?")
 
 (defun select-string ()
   "Select a string under cursor. “string” here is anything between “”. Returns_pair_(beginig-of-string-in-buffer, end-of-string-in-buffer)."
@@ -30,15 +32,23 @@
         (progn
           (downcase-region p1 p2)
           (replace-string " " "_" `() p1 p2)
-          (replace-string "\"" "t(:" `()  (- p1 1) p1)
-          (replace-string "\"" ")"   `()  (+ p2 2) (+ p2 3) )
-          (cons (buffer-substring (+ p1 2) (+ p2 2)) val)
+          (replace-string "?" "_" `() p1 p2)
+          (goto-char p1)
+          (let ((char-to-replace (char-to-string (char-before))))
+            (replace-string char-to-replace "t(:" `()  (- p1 1) p1)
+            (replace-string char-to-replace ")"   `()  (+ p2 2) (+ p2 3) )
+            (cons (buffer-substring (+ p1 2) (+ p2 2)) val)
+            )
           )
         )
       )
     )
   )
 
+(defun display-char-befor()
+  (interactive)
+  (message "%s" (char-before))
+  )
 
 (defun update-translation-file ()
   "Replaces string under cursor and updates translation file"
