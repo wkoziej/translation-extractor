@@ -1,0 +1,5 @@
+Early phase of development...
+
+== Usage
+Use 'update-translation-file' function to extract strings from sources and inserting key:values records to *.yml files
+
