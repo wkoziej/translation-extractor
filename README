@@ -1,5 +1,16 @@
 Early phase of development...
 
-== Usage
-Use 'update-translation-file' function to extract strings from sources and inserting key:values records to *.yml files
+== How to test it
+# Open translation-extractor.el in emacs
+# edit value of const "translation-yml-file"
+# M-x eval-bufer 
+# global-set-key "Ctrl+t" update-translation-file
+# Open file to translation e.g. index.html.erb
+# Go to string you want to translate
+# Press Ctrl+t
+# Selected string will be converted to t(:generated_key)
+# Line:
+ generated_key: selected_string 
+shoud appear in translation-yml-file (if generated_key doesn't exists)
+
 
